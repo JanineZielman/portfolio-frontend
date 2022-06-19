@@ -2,7 +2,18 @@ import React, { useState, useEffect } from 'react';
 import Image from './image'
 
 const Projects = ({projects, categories}) => {
+	let [elements, setElements] = useState();
+
+
+
+	console.log(elements)
+
 	useEffect(() => {
+		let elem = [];
+		for (let i = 0; i < categories.length; i++) { 
+			elem += '.' + categories[i].attributes.slug + ',';
+		}
+		setElements(elem)
 		$(function () {
 		
 			var filterList = {
@@ -17,7 +28,7 @@ const Projects = ({projects, categories}) => {
 							filter: '.filter'	
 						},
 						load: {
-							filter: '.digital, .typography, .print'  
+							filter: elements
 						}     
 					});								
 				
@@ -34,10 +45,12 @@ const Projects = ({projects, categories}) => {
   return (
 		<section className='works'>
 			<ul id="filters" class="clearfix">
-				<li><span class="filter" data-filter=".digital, .typography, .print">All</span></li>
-				<li><span class="filter" data-filter=".digital">Digital</span></li>
-				<li><span class="filter" data-filter=".typography">Typography</span></li>
-				<li><span class="filter" data-filter=".print">Print</span></li>
+				<li><span class="filter" data-filter={`${elements} .all`}>All</span></li>
+				{categories.map((category, i) => {
+					return(
+						<li><span class="filter" data-filter={`.${category.attributes.slug}`}>{category.attributes.title}</span></li>
+					)
+				})}
 			</ul>
 			<div id="portfoliolist">
 				{projects.map((item, i) => {
