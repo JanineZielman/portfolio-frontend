@@ -11,7 +11,7 @@
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
   -o-box-sizing: border-box;
-  line-height: 2;
+  line-height: 1.5;
 }
 
 	#info .info-wrapper {
@@ -65,7 +65,7 @@
 		text-decoration:none;
 		color:#666;
     cursor: pointer;
-    line-height: 2;
+    line-height: 1.5;
     transition: all 0.5s;
     font-size: 16px;
 	}
@@ -85,8 +85,8 @@
 		-o-box-sizing: border-box;
 		height: 18vw;
 		margin:1%;
-		/* display:none; */
-		display: inline-block;
+		display:none;
+		// display: inline-block;
 		overflow:hidden;
 		vertical-align: middle;
 		text-align: left!important;

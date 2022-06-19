@@ -3,16 +3,24 @@ import ReactMarkdown from "react-markdown";
 import Layout from "../components/layout"
 import Image from '../components/image'
 
-const Page = ({page, projects}) => {
-	console.log(page)
+const Page = ({page, projects, id }) => {
+	console.log(projects)
+	let next = id + 1;
+	let prev = id - 1;
+	if (id == 1) {
+		prev = projects.length;
+	}
+	if (id == projects.length) {
+		next = 1;
+	}
   return (
     <Layout page={page}>
       <div>
 				<div class="preview-img">
         	<Image image={page.cover_image.data.attributes}/>
       	</div>
-				<a href="../digital-media2/digital-media2.html"><div class="circle-left dark"></div></a>
-				<a href="../typography/typography.html"><div class="circle-right dark"></div></a>
+				<a href={projects.find(x => x.id === prev).attributes.slug}><div class="circle-left dark"></div></a>
+				<a href={projects.find(x => x.id === next).attributes.slug}><div class="circle-right dark"></div></a>
 				<a href="#main"><div class="circle-bottom dark"></div></a>
 			</div>
 			<div class="grid-container">
@@ -21,7 +29,6 @@ const Page = ({page, projects}) => {
 						<ReactMarkdown 
 							children={page.description} 
 						/>
-						{/* <p>{page.description}</p> */}
 					</div>
 				</div>
 			</div>
@@ -54,6 +61,7 @@ export async function getStaticProps({ params }) {
   return {
     props: { 
       page: pagesRes.data[0].attributes, 
+			id: pagesRes.data[0].id, 
 			projects: projectsRes.data,
     },
     revalidate: 1,
