@@ -6,6 +6,7 @@ const Projects = ({projects, categories}) => {
 
 	useEffect(() => {
 		let elem = [];
+		let ctg = [];
 		for (let i = 0; i < categories.length; i++) { 
 			elem += '.' + categories[i].attributes.slug + ',';
 		}
@@ -50,8 +51,10 @@ const Projects = ({projects, categories}) => {
 			</ul>
 			<div id="portfoliolist">
 				{projects.map((item, i) => {
+					let ctgs = []
+					ctgs += item.attributes.categories.data.map((category, j) => (category.attributes.slug))
 					return(
-						<div className={`portfolio ${item.attributes.categories.data[0].attributes.slug}`} data-cat={item.attributes.categories.data[0].attributes.slug}>
+						<div className={`portfolio ${ctgs.replace(',', ' ')}`} data-cat={ctgs.replace(',', ' ')}>
 							<div className="portfolio-wrapper">
 								<div className='img'>
 									<Image image={item.attributes.cover_image.data.attributes}/>
@@ -60,13 +63,11 @@ const Projects = ({projects, categories}) => {
 									<div className="label-text">
 										<a href="pages/typography/typography.html" className="text-title">{item.attributes.title}</a>
 										<span className="text-category">
-											{item.attributes.categories.data.map((category, j) => {
-												return(
-													<>
-													{category.attributes.title}
-													</>
-												)
-											})}
+											{item.attributes.categories.data.map((category, j) => (
+													<span>
+													{`${category.attributes.title + ' '}`}
+													</span>
+											))}
 										</span>
 									</div>
 									<a href={item.attributes.slug}><div className="label-bg"></div></a>

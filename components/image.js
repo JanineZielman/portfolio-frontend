@@ -26,8 +26,8 @@ const Image = ({ image, layout, objectFit, sizes  }) => {
      <NextImage
         loader={loader}
         layout={layout}
-        width={width || ""} 
-        height={height || ""}
+        width={width || "1920"} 
+        height={height || "1080"}
         objectFit={objectFit}
         src={getStrapiMedia(image)}
         alt={alternativeText || ""}
