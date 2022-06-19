@@ -1,15 +1,12 @@
 import React from "react";
-import Layout from "../components/layout";
 import { fetchAPI } from "../lib/api";
+import Layout from "../components/layout";
+import Projects from "../components/projects";
 
-const Home = ({ projects, categories, home }) => {
+const Home = ({ projects, categories, page }) => {
   return (
-    <Layout>
-      <div className="grid-container">
-        <div className="head">
-          <h1 id="intro">{home.title}</h1>
-        </div> 
-      </div>
+    <Layout page={page}>
+      <Projects projects={projects} categories={categories}/>
     </Layout>
   );
 };
@@ -17,13 +14,17 @@ const Home = ({ projects, categories, home }) => {
 export async function getStaticProps() {
   
   // Run API calls in parallel
-  const [homepageRes] = await Promise.all([
+  const [pageRes, projectsRes, categoriesRes] = await Promise.all([
     fetchAPI("/home", { populate: "*" }),
+    fetchAPI("/projects", { populate: "*" }),
+    fetchAPI("/categories", { populate: "*" }),
   ])
 
   return {
     props: {
-      home: homepageRes.data.attributes,
+      page: pageRes.data.attributes,
+      projects: projectsRes.data,
+      categories: categoriesRes.data,
     },
     revalidate: 1,
   }
