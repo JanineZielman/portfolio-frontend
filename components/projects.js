@@ -4,10 +4,6 @@ import Image from './image'
 const Projects = ({projects, categories}) => {
 	let [elements, setElements] = useState();
 
-
-
-	console.log(elements)
-
 	useEffect(() => {
 		let elem = [];
 		for (let i = 0; i < categories.length; i++) { 

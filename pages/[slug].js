@@ -4,7 +4,6 @@ import Layout from "../components/layout"
 import Image from '../components/image'
 
 const Page = ({page, projects, id }) => {
-	console.log(projects)
 	let next = id + 1;
 	let prev = id - 1;
 	if (id == 1) {
@@ -13,6 +12,8 @@ const Page = ({page, projects, id }) => {
 	if (id == projects.length) {
 		next = 1;
 	}
+
+	
   return (
     <Layout page={page}>
       <div>
