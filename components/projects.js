@@ -61,7 +61,7 @@ const Projects = ({projects, categories}) => {
 								</div>
 								<div className="label">
 									<div className="label-text">
-										<a href="pages/typography/typography.html" className="text-title">{item.attributes.title}</a>
+										<a href={item.attributes.slug} className="text-title">{item.attributes.title}</a>
 										<span className="text-category">
 											{item.attributes.categories.data.map((category, j) => (
 													<span>
