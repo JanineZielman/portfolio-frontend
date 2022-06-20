@@ -13,15 +13,22 @@ const Page = ({page, projects, id }) => {
 		next = 1;
 	}
 
-	
+	console.log(page)
   return (
     <Layout page={page}>
       <div>
 				<div class="preview-img">
-        	<Image image={page.cover_image.data.attributes}/>
+					{page.iframe ? 
+						<>
+							<iframe src={page.iframe} scrolling="no"/>
+							<a target="_blank" href={page.iframe}><div class="circle dark"></div></a>
+						</>
+					:
+        		<Image image={page.cover_image.data.attributes}/>
+					}
       	</div>
-				<a href={projects.find(x => x.id === prev).attributes.slug}><div class="circle-left dark"></div></a>
-				<a href={projects.find(x => x.id === next).attributes.slug}><div class="circle-right dark"></div></a>
+				<a href={projects.find(x => parseInt(x.attributes.number) === prev)?.attributes.slug}><div class="circle-left dark"></div></a>
+				<a href={projects.find(x => parseInt(x.attributes.number) === next)?.attributes.slug}><div class="circle-right dark"></div></a>
 				<a href="#main"><div class="circle-bottom dark"></div></a>
 			</div>
 			<div class="grid-container">
@@ -62,7 +69,7 @@ export async function getStaticProps({ params }) {
   return {
     props: { 
       page: pagesRes.data[0].attributes, 
-			id: pagesRes.data[0].id, 
+			id: parseInt(pagesRes.data[0].attributes.number), 
 			projects: projectsRes.data,
     },
     revalidate: 1,

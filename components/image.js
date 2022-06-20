@@ -26,7 +26,7 @@ const Image = ({ image, layout, objectFit, sizes  }) => {
      <NextImage
         loader={loader}
         layout={layout}
-        width={width || "1920"} 
+        width={width || "1600"} 
         height={height || "1080"}
         objectFit={objectFit}
         src={getStrapiMedia(image)}

@@ -152,6 +152,12 @@ p{
   margin-left: 10vw;
   margin-top: 8vh;
   max-height: 80vh;
+  iframe {
+    border: none;
+    height: 80vh;
+    width: 80vw;
+    overflow-y: hidden;
+  }
   span{
     height: auto;
     width: 80vw;
