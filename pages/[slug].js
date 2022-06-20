@@ -3,7 +3,7 @@ import ReactMarkdown from "react-markdown";
 import Layout from "../components/layout"
 import Image from '../components/image'
 
-const Page = ({page, projects, id }) => {
+const Page = ({page, projects, id, content }) => {
 	let next = id + 1;
 	let prev = id - 1;
 	if (id == 1) {
@@ -13,7 +13,7 @@ const Page = ({page, projects, id }) => {
 		next = 1;
 	}
 
-	console.log(page)
+	console.log(content)
   return (
     <Layout page={page}>
       <div>
@@ -38,6 +38,29 @@ const Page = ({page, projects, id }) => {
 							children={page.description} 
 						/>
 					</div>
+					{content.map((item, i) => {
+						return(
+							<div className="content">
+								{item.__component == 'basic.text' &&
+									<div class="text">
+										<ReactMarkdown 
+											children={item.text} 
+										/>
+									</div>
+								}
+								{item.__component == 'basic.image' &&
+									<div class="project-image">
+											<Image image={item.image.data.attributes}/>
+									</div>
+								}
+								{item.__component == 'basic.iframe' &&
+									<div class="iframe">
+										<iframe src={item.iframe} scrolling="no"/>
+									</div>
+								}
+							</div>
+						)
+					})}
 				</div>
 			</div>
     </Layout>
@@ -61,6 +84,10 @@ export async function getStaticProps({ params }) {
     await fetchAPI( `/projects?filters[slug][$eq]=${params.slug}&populate=*`
   );
 
+	const contentRes = 
+    await fetchAPI( `/projects?filters[slug][$eq]=${params.slug}&populate[content][populate]=*`
+  );
+
 	const projectsRes = 
     await fetchAPI( `/projects?populate=*`
   );
@@ -69,6 +96,7 @@ export async function getStaticProps({ params }) {
   return {
     props: { 
       page: pagesRes.data[0].attributes, 
+			content: contentRes.data[0].attributes.content,
 			id: parseInt(pagesRes.data[0].attributes.number), 
 			projects: projectsRes.data,
     },

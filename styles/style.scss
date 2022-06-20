@@ -145,6 +145,13 @@ p{
   padding-bottom: 50px;
 }
 
+iframe {
+  border: none;
+  height: 80vh;
+  width: 80vw;
+  overflow-y: hidden;
+}
+
 .preview-img{
   height: auto;
   width: 80vw;
@@ -152,12 +159,6 @@ p{
   margin-left: 10vw;
   margin-top: 8vh;
   max-height: 80vh;
-  iframe {
-    border: none;
-    height: 80vh;
-    width: 80vw;
-    overflow-y: hidden;
-  }
   span{
     height: auto;
     width: 80vw;
@@ -174,6 +175,15 @@ iframe{
   width: 80vw;
   overflow: scroll;
   transition: all 1s;
+}
+
+.content{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  .text{
+    margin-left: 0;
+  }
 }
 
 .big-img img{
